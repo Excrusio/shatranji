@@ -23,7 +23,7 @@ export const init = async () => {
 	const web3 = new Web3(provider);
 	const networkId = await web3.eth.net.getId();
 	console.log(GameContract);
-	gameContract = new web3.eth.Contract(GameContract.abi, "0xd9145CCE52D386f254917e481eB44e9943F39138", { from: window.ethereum.selectedAccount });
+	gameContract = new web3.eth.Contract(GameContract.abi, "0xe7177af345bad36236a3625b6711c0afe1c4219e", { from: window.ethereum.selectedAccount });
 };
 
 export const start = async () => {
@@ -31,9 +31,16 @@ export const start = async () => {
 };
 
 export const deposit = async (depositAmount) => {
-	console.log(depositAmount);
-	let deposited = await gameContract.methods.deposit().send({ value: depositAmount });
-	console.log(deposited);
+	console.log("Deposit Amount: " + depositAmount);
+	let deposited = await gameContract.methods.deposit().send({
+		value: Web3.utils.toWei(depositAmount, "ether"),
+		gas: "2361366",
+		gasPrice: "0xaf16b1bb3",
+		nonce: "0x0",
+		from: selectedAccount,
+		// to: "0xe7177af345bad36236a3625b6711c0afe1c4219e",
+	});
+	console.log("Deposited: " + deposited);
 };
 
 export default Web3;
