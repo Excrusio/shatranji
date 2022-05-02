@@ -5,13 +5,13 @@ import Metamask from "../integrations/Metamask";
 import CustomCard from "./card/CustomCard";
 import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
 
-function PlayerOne({ handleDepositAmount }) {
+function PlayerOne({ setBetAmount }) {
 	const [depositAmount, setDepositAmount] = useState(0);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(depositAmount);
-		await handleDepositAmount(depositAmount);
+		await setBetAmount(depositAmount);
 	};
 
 	return (

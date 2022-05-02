@@ -1,19 +1,22 @@
-import "../App.css";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import "chessboard-element";
-import React from "react";
-import Metamask from "../integrations/Metamask";
+import React, { useState } from "react";
+import "../App.css";
 import WithMoveValidation from "../integrations/WithMoveValidation.js";
 
-// class Game extends Component {
-// 	constructor() {
-// 		super();
-// 		this.state = {
-// 			name: "React",
-// 		};
-// 	}
+function Game({ handleBetAmount, getBetAmount }) {
+	const [betAmount, setBetAmount] = useState(0);
 
-function Game() {
-	// render() {
+	const checkBetAmount = async (e) => {
+		e.preventDefault();
+		let amount = await getBetAmount();
+		setBetAmount(amount);
+		await console.log("WALLALA" + amount);
+	};
+
+	// Send money to the winner
+	// await handleBetAmount();
+
 	return (
 		<div className="Game">
 			{/* <h3> National Institute of Technology, Kurukshetra</h3> */}
@@ -24,10 +27,17 @@ function Game() {
 			<div style={boardsContainer}>
 				<WithMoveValidation />
 			</div>
-
-			{/* <div style={{ display: "flex", justifyContent: "center" }}>
-					<Metamask />
-				</div> */}
+			<div style={{ display: "flex", justifyContent: "center" }}>
+				<div style={{ display: "flex", flexDirection: "column" }}>
+					<Paper elevation={3} sx={{ p: 3, width: "500px" }}>
+						<Stack spacing={2}>
+							<Typography variant="h5"> Total Amount Deposited: </Typography>
+							<Button onClick={checkBetAmount}>Check Bet Amount</Button>
+							<Typography variant="h5">{betAmount}</Typography>
+						</Stack>
+					</Paper>
+				</div>
+			</div>
 		</div>
 	);
 	// }

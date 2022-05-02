@@ -4,14 +4,16 @@ import React, { useState } from "react";
 import Metamask from "../integrations/Metamask";
 import CustomCard from "./card/CustomCard";
 import { Button, Paper, setRef, Stack, TextField, Typography } from "@mui/material";
+import { deposit } from "../Web3Client";
 
-function PlayerTwo() {
+function PlayerTwo({ setBetAmount }) {
 	const [depositAmount, setDepositAmount] = useState(0);
 	const [gameCode, setGameCode] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(gameCode, depositAmount);
+		await setBetAmount(depositAmount);
 	};
 
 	return (

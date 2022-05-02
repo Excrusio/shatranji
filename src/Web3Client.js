@@ -2,6 +2,7 @@ import Web3 from "web3";
 import GameContract from "./truffle/build/GameContract.json";
 let selectedAccount;
 let gameContract;
+let stakeAmount = 0;
 
 export const init = async () => {
 	let provider = window.ethereum;
@@ -30,10 +31,18 @@ export const start = async () => {
 	// return gameContract.methods.startGame(gameCode, selectedAccount, stake);
 };
 
-export const deposit = async (depositAmount) => {
-	console.log("Deposit Amount: " + depositAmount);
+export const setBetAmount = async (depositAmount) => {
+	stakeAmount += parseInt(depositAmount);
+};
+
+export const getBetAmount = async () => {
+	return stakeAmount;
+};
+
+export const deposit = async () => {
+	console.log("Deposit Amount: " + stakeAmount);
 	let deposited = await gameContract.methods.deposit().send({
-		value: Web3.utils.toWei(depositAmount, "ether"),
+		value: Web3.utils.toWei(stakeAmount, "ether"),
 		gas: "2361366",
 		gasPrice: "0xaf16b1bb3",
 		nonce: "0x0",

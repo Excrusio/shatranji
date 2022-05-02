@@ -4,7 +4,7 @@ import "./App.css";
 import "chessboard-element";
 // import React from "react";
 // import { use effect } from "react";
-import { init, deposit } from "./Web3Client";
+import { init, deposit, setBetAmount, getBetAmount } from "./Web3Client";
 import PlayerOne from "./components/PlayerOne";
 import Game from "./components/Game";
 import PlayerTwo from "./components/PlayerTwo";
@@ -21,9 +21,9 @@ function App() {
 
 	return (
 		<div className="App">
-			<PlayerOne handleDepositAmount={deposit} />
-			<PlayerTwo />
-			<Game />
+			<PlayerOne setBetAmount={setBetAmount} />
+			<PlayerTwo setBetAmount={setBetAmount} />
+			<Game handleBetAmount={deposit} getBetAmount={getBetAmount} />
 		</div>
 	);
 }
