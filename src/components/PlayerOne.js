@@ -44,7 +44,7 @@ function PlayerOne({ setBetAmount }) {
 										label="Amount"
 									></TextField>
 									<Button variant="contained" color="primary" onClick={handleSubmit}>
-										"Submit"
+										Submit
 									</Button>
 								</div>
 								<Typography variant="h6"></Typography>

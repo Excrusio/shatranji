@@ -43,7 +43,7 @@ function PlayerTwo({ setBetAmount }) {
 										label="Game Code"
 									></TextField>
 									<Button variant="contained" color="primary" onClick={handleSubmit}>
-										"Submit"
+										Submit
 									</Button>
 								</div>
 								<Typography variant="h6"></Typography>

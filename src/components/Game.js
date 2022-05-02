@@ -32,7 +32,9 @@ function Game({ handleBetAmount, getBetAmount }) {
 					<Paper elevation={3} sx={{ p: 3, width: "500px" }}>
 						<Stack spacing={2}>
 							<Typography variant="h5"> Total Amount Deposited: </Typography>
-							<Button onClick={checkBetAmount}>Check Bet Amount</Button>
+							<Button variant="contained" onClick={checkBetAmount}>
+								Check Bet Amount
+							</Button>
 							<Typography variant="h5">{betAmount}</Typography>
 						</Stack>
 					</Paper>
