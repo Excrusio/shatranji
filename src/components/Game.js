@@ -6,6 +6,7 @@ import WithMoveValidation from "../integrations/WithMoveValidation.js";
 
 function Game({ handleBetAmount, getBetAmount }) {
 	const [betAmount, setBetAmount] = useState(0);
+	const [gameWinner, setGameWinner] = useState("");
 
 	const checkBetAmount = async (e) => {
 		e.preventDefault();
@@ -13,6 +14,11 @@ function Game({ handleBetAmount, getBetAmount }) {
 		setBetAmount(amount);
 		await console.log("WALLALA" + amount);
 	};
+
+	function winnerCallback(winner) {
+		console.log("From parent component " + winner);
+		setGameWinner(winner);
+	}
 
 	// Send money to the winner
 	// await handleBetAmount();
@@ -25,13 +31,16 @@ function Game({ handleBetAmount, getBetAmount }) {
 				<h1>स्मार्ट शतरंज</h1>
 			</div>
 			<div style={boardsContainer}>
-				<WithMoveValidation />
+				<WithMoveValidation winnerCallback={winnerCallback} />
 			</div>
 			<div style={{ display: "flex", justifyContent: "center" }}>
 				<div style={{ display: "flex", flexDirection: "column" }}>
 					<Paper elevation={3} sx={{ p: 3, width: "500px" }}>
 						<Stack spacing={2}>
-							<Typography variant="h5"> Total Amount Deposited: </Typography>
+							<Typography variant="h5">
+								{" "}
+								Total Amount Deposited:{" "}
+							</Typography>
 							<Button variant="contained" onClick={checkBetAmount}>
 								Check Bet Amount
 							</Button>
