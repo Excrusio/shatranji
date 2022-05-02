@@ -1,9 +1,8 @@
-import "../App.css";
+import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import "chessboard-element";
 import React, { useState } from "react";
+import "../App.css";
 import Metamask from "../integrations/Metamask";
-import CustomCard from "./card/CustomCard";
-import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
 
 function PlayerOne({ setBetAmount }) {
 	const [depositAmount, setDepositAmount] = useState(0);
@@ -28,7 +27,7 @@ function PlayerOne({ setBetAmount }) {
 	return (
 		<div className="PlayerOne">
 			{/* <h3> National Institute of Technology, Kurukshetra</h3> */}
-			<hr></hr>
+
 			<div style={{ display: "flex", justifyContent: "center" }}>
 				<h1>स्मार्ट शतरंज</h1>
 			</div>
@@ -47,7 +46,7 @@ function PlayerOne({ setBetAmount }) {
 				<br></br>
 				<div style={{ display: "flex", width: "50%", justifyContent: "center" }}>
 					<div>
-						<Paper elevation={3} sx={{ p: 3, width: "500px" }}>
+						<Paper elevation={3}>
 							<Stack spacing={2}>
 								<Typography variant="h5">
 									{" "}
@@ -81,9 +80,9 @@ function PlayerOne({ setBetAmount }) {
 				<div style={{ display: "flex", width: "50%", justifyContent: "center" }}>
 					{/* <CustomCard text="Create Game" type="button" buttonText="Create" /> */}
 					<div>
-						<Paper elevation={3} sx={{ p: 3, width: "500px" }}>
+						<Paper elevation={3}>
 							<Stack spacing={2}>
-								<Typography variant="h5">Create Game</Typography>
+								{/* <Typography variant="h5">Create Game</Typography> */}
 								<div style={{ display: "flex", flexDirection: "column" }}>
 									<Button
 										variant="contained"

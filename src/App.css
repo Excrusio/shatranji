@@ -47,3 +47,10 @@
 	flex-basis: 100%;
 	width: 0;
 }
+
+/* .container {
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	justify-items: space-between;
+} */
