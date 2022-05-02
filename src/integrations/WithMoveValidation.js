@@ -8,14 +8,15 @@ import Chessboard from "chessboardjsx";
 // const FEN_STRING = "k7/1R1RN3/p3p3/P3P2p/1PP4P/3K1PP1/8/8 b - h3 0 1";
 
 // White winner string
-// const FEN_STRING = "rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3";
+const FEN_STRING = "rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3";
 
 // Start from a fen string
 // const FEN_STRING = "rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2";
 
 // Default
-const FEN_STRING = "start";
-
+// const FEN_STRING = "start";
+let gameWinner = " ";
+let winnerCallbackFunc;
 class HumanVsHuman extends Component {
 	static propTypes = { children: PropTypes.func };
 
@@ -55,6 +56,8 @@ class HumanVsHuman extends Component {
 			} else {
 				winner = "Black";
 			}
+			gameWinner = winner;
+			winnerCallbackFunc(gameWinner);
 			alert(`Game Over! Player ${winner} is the winner!`);
 			// let prevState = {...this.state}
 			// this.setState({
@@ -185,7 +188,9 @@ class HumanVsHuman extends Component {
 	}
 }
 
-export default function WithMoveValidation() {
+export default function WithMoveValidation({ winnerCallback }) {
+	// console.log("CAllbackx" + winnerCallback);
+	winnerCallbackFunc = winnerCallback;
 	return (
 		<div>
 			<HumanVsHuman>
