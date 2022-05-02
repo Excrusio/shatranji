@@ -35,8 +35,8 @@ function App() {
 			</BrowserRouter> */}
 			<div className="container">
 				<PlayerOne setBetAmount={setBetAmount} />
-				<PlayerTwo setBetAmount={setBetAmount} />
 				<Game handleBetAmount={deposit} getBetAmount={getBetAmount} />
+				<PlayerTwo setBetAmount={setBetAmount} />
 			</div>
 		</div>
 	);

@@ -48,9 +48,14 @@
 	width: 0;
 }
 
-/* .container {
+.container {
 	height: 100vh;
 	display: flex;
 	flex-direction: row;
-	justify-items: space-between;
-} */
+	justify-content: space-around;
+}
+
+.player-screen > * {
+	padding: 0.7em;
+	margin: 0.7em;
+}

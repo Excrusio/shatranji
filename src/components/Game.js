@@ -33,21 +33,16 @@ function Game({ handleBetAmount, getBetAmount }) {
 			<div style={boardsContainer}>
 				<WithMoveValidation winnerCallback={winnerCallback} />
 			</div>
-			<div style={{ display: "flex", justifyContent: "center" }}>
-				<div style={{ display: "flex", flexDirection: "column" }}>
-					<Paper elevation={3} sx={{ p: 3, width: "500px" }}>
-						<Stack spacing={2}>
-							<Typography variant="h5">
-								{" "}
-								Total Amount Deposited:{" "}
-							</Typography>
-							<Button variant="contained" onClick={checkBetAmount}>
-								Check Bet Amount
-							</Button>
-							<Typography variant="h5">{betAmount}</Typography>
-						</Stack>
-					</Paper>
-				</div>
+			<div className="player-screen">
+				<Paper elevation={3}>
+					<Stack spacing={2}>
+						<Typography variant="h5"> Total Amount Deposited: </Typography>
+						<Button variant="contained" onClick={checkBetAmount}>
+							Check Bet Amount
+						</Button>
+						<Typography variant="h5">{betAmount}</Typography>
+					</Stack>
+				</Paper>
 			</div>
 		</div>
 	);
@@ -61,7 +56,6 @@ const boardsContainer = {
 	justifyContent: "space-around",
 	alignItems: "center",
 	flexWrap: "wrap",
-	width: "100vw",
 	marginTop: 30,
 	marginBottom: 50,
 };
