@@ -8,8 +8,7 @@ import Chessboard from "chessboardjsx";
 // const FEN_STRING = "k7/1R1RN3/p3p3/P3P2p/1PP4P/3K1PP1/8/8 b - h3 0 1";
 
 // White winner string
-// const FEN_STRING = "rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3";
-const FEN_STRING = "3q1QBr/r4K2/1R1q4/8/8/2P3N1/1P2B3/4k2b w - - 0 1";
+const FEN_STRING = "rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3";
 
 // Start from a fen string
 // const FEN_STRING = "rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2";
