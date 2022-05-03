@@ -7,11 +7,13 @@ import Metamask from "../integrations/Metamask";
 function PlayerOne({ setBetAmount }) {
 	const [depositAmount, setDepositAmount] = useState(0);
 	const [gameCode, setGameCode] = useState("");
+	const [disabled, setDisabled] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(depositAmount);
 		await setBetAmount(depositAmount);
+		setDisabled(true);
 	};
 
 	const generateGameCode = () => {
@@ -38,14 +40,22 @@ function PlayerOne({ setBetAmount }) {
 						label="Enter the amount to deposit"
 						helperText="in Wei"
 					/>
-					<Button variant="contained" color="primary" onClick={handleSubmit}>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={handleSubmit}
+						disabled={disabled}
+					>
 						Deposit
 					</Button>
 				</Stack>
 			</Paper>
+			<br></br>
 			<Button variant="contained" color="primary" onClick={generateGameCode}>
 				Create Game
 			</Button>
+
+			<Typography>{gameCode}</Typography>
 		</div>
 	);
 }

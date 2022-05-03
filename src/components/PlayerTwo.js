@@ -9,11 +9,13 @@ import { deposit } from "../Web3Client";
 function PlayerTwo({ setBetAmount }) {
 	const [depositAmount, setDepositAmount] = useState(0);
 	const [gameCode, setGameCode] = useState("");
+	const [disabled, setDisabled] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(gameCode, depositAmount);
 		await setBetAmount(depositAmount);
+		setDisabled(true);
 	};
 
 	const verifyGameCode = () => {
@@ -51,10 +53,15 @@ function PlayerTwo({ setBetAmount }) {
 						variant="outlined"
 						type="number"
 						onChange={(e) => setDepositAmount(e.target.value)}
-						helperText="Enter the Amount in Wei"
+						helperText="in Wei"
 						label="Amount"
 					></TextField>
-					<Button variant="contained" color="primary" onClick={handleSubmit}>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={handleSubmit}
+						disabled={disabled}
+					>
 						Deposit
 					</Button>
 				</Stack>
