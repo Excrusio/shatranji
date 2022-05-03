@@ -40,24 +40,10 @@ function PlayerTwo({ setBetAmount }) {
 				<Stack>
 					<TextField
 						variant="outlined"
-						type="text"
-						onChange={(e) => setGameCode(e.target.value)}
-						helperText="6 Digit Hex Code"
-						label="Enter game code to join"
-					/>
-					<Button variant="contained" color="primary" onClick={verifyGameCode}>
-						Join
-					</Button>
-				</Stack>
-			</Paper>
-			<Paper elevation={3}>
-				<Stack>
-					<TextField
-						variant="outlined"
 						type="number"
 						onChange={(e) => setDepositAmount(e.target.value)}
 						helperText="in Wei"
-						label="Amount"
+						label="Enter the amount to deposit"
 					></TextField>
 					<Button
 						variant="contained"
@@ -66,6 +52,20 @@ function PlayerTwo({ setBetAmount }) {
 						disabled={disabled}
 					>
 						Deposit
+					</Button>
+				</Stack>
+			</Paper>
+			<Paper elevation={3}>
+				<Stack>
+					<TextField
+						variant="outlined"
+						type="text"
+						onChange={(e) => setGameCode(e.target.value)}
+						helperText="6 Digit Hex Code"
+						label="Enter a game code to join"
+					/>
+					<Button variant="contained" color="primary" onClick={verifyGameCode}>
+						Join
 					</Button>
 				</Stack>
 			</Paper>

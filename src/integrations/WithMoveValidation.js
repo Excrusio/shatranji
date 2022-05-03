@@ -57,14 +57,14 @@ class HumanVsHuman extends Component {
 				winner = "Black";
 			}
 			gameWinner = winner;
-			winnerCallbackFunc(gameWinner);
+			winnerCallbackFunc(gameWinner, true);
 			alert(`Game Over! Player ${winner} is the winner!`);
 			// let prevState = {...this.state}
-			// this.setState({
-			// 	...this.state,
-			// 	fen: "start",
-			// });
-			// this.game = new Chess();
+			this.setState({
+				...this.state,
+				fen: "start",
+			});
+			this.game = new Chess();
 		}
 
 		const ifDraw = this.game.in_draw();
@@ -189,7 +189,7 @@ class HumanVsHuman extends Component {
 	}
 }
 
-export default function WithMoveValidation({ winnerCallback }) {
+export default function WithMoveValidation({ winnerCallback, fenString }) {
 	// console.log("CAllbackx" + winnerCallback);
 	winnerCallbackFunc = winnerCallback;
 	return (
