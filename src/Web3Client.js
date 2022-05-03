@@ -3,6 +3,7 @@ import GameContract from "./truffle/build/GameContract.json";
 let selectedAccount;
 let gameContract;
 let stakeAmount = 0;
+let toAccount = "0xe7177af345bad36236a3625b6711c0afe1c4219e";
 
 export const init = async () => {
 	let provider = window.ethereum;
@@ -24,7 +25,9 @@ export const init = async () => {
 	const web3 = new Web3(provider);
 	const networkId = await web3.eth.net.getId();
 	console.log(GameContract);
-	gameContract = new web3.eth.Contract(GameContract.abi, "0xe7177af345bad36236a3625b6711c0afe1c4219e", { from: window.ethereum.selectedAccount });
+	gameContract = new web3.eth.Contract(GameContract.abi, toAccount, {
+		from: window.ethereum.selectedAccount,
+	});
 };
 
 export const start = async () => {
@@ -42,12 +45,12 @@ export const getBetAmount = async () => {
 export const deposit = async () => {
 	console.log("Deposit Amount: " + stakeAmount);
 	let deposited = await gameContract.methods.deposit().send({
-		value: Web3.utils.toWei(stakeAmount, "ether"),
-		gas: "2361366",
-		gasPrice: "0xaf16b1bb3",
+		value: Web3.utils.toWei(stakeAmount.toString(), "finney"),
+		gas: "23613",
+		gasPrice: "20000000000",
 		nonce: "0x0",
 		from: selectedAccount,
-		// to: "0xe7177af345bad36236a3625b6711c0afe1c4219e",
+		to: toAccount,
 	});
 	console.log("Deposited: " + deposited);
 };

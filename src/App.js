@@ -1,11 +1,10 @@
+import "chessboard-element";
 import React, { useEffect } from "react";
 import "./App.css";
-import "chessboard-element";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { init, deposit, setBetAmount, getBetAmount } from "./Web3Client";
+import Game from "./components/Game";
 import PlayerOne from "./components/PlayerOne";
 import PlayerTwo from "./components/PlayerTwo";
-import Game from "./components/Game";
+import { deposit, getBetAmount, init, setBetAmount } from "./Web3Client";
 
 function App() {
 	useEffect(() => {

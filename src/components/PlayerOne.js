@@ -40,7 +40,7 @@ function PlayerOne({ setBetAmount }) {
 							setDepositAmount(e.target.value);
 						}}
 						label="Enter the amount to deposit"
-						helperText="in Wei"
+						helperText="in Milliether"
 					/>
 					<Button
 						variant="contained"

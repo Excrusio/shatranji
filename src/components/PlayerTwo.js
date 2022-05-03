@@ -42,7 +42,7 @@ function PlayerTwo({ setBetAmount }) {
 						variant="outlined"
 						type="number"
 						onChange={(e) => setDepositAmount(e.target.value)}
-						helperText="in Wei"
+						helperText="in Milliether"
 						label="Enter the amount to deposit"
 					></TextField>
 					<Button

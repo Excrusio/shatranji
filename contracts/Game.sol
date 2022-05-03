@@ -8,43 +8,43 @@ contract GameContract {
     using Counters for Counters.Counter;
     Counters.Counter private _gameIds;
 
-    event GetGameOutcome(GameOutcome);
+    event get_game_outcome(game_outcome);
 
-    enum GameStatus {
+    enum game_status {
         started,
         ongoing,
         ended
     }
 
-    enum GameOutcome {
+    enum game_outcome {
         draw,
-        playerOne,
-        playerTwo
+        player_one,
+        player_two
     }
 
     //   Player 1 who creates game and player 2 is opponent
     struct Game {
-        address playerOne;
-        address playerTwo;
+        address player_one;
+        address player_two;
         uint256 stake;
-        string gameCode;
+        string game_code;
         // string beforeMatchDataURI;
         // string afterMatchDataURI;
-        GameStatus status;
-        GameOutcome outcome;
+        game_status status;
+        game_outcome outcome;
     }
 
-    mapping(address => uint256) public playerBalances;
+    mapping(address => uint256) public balances_of_players;
     mapping(string => Game) public games;
-    mapping(GameOutcome => string) public outcomes;
+    mapping(game_outcome => string) public outcomes;
 
     constructor() {
-        outcomes[GameOutcome.draw] = "draw";
-        outcomes[GameOutcome.playerOne] = "playerOne";
-        outcomes[GameOutcome.playerTwo] = "playerTwo";
+        outcomes[game_outcome.draw] = "draw";
+        outcomes[game_outcome.player_one] = "player_one";
+        outcomes[game_outcome.player_two] = "player_two";
     }
 
-    function compareStrings(string memory a, string memory b)
+    function compare_strings(string memory a, string memory b)
         public
         view
         returns (bool)
@@ -54,8 +54,8 @@ contract GameContract {
     }
 
     // Player 1 creates a game
-    function startGame(
-        string memory gameCode,
+    function start_game(
+        string memory game_code,
         // string memory beforeMatchDataURI,
         address opponent,
         uint256 stake
@@ -65,84 +65,84 @@ contract GameContract {
             "Enter a valid opponent address"
         );
         require(
-            stake <= playerBalances[msg.sender],
+            stake <= balances_of_players[msg.sender],
             "Players funds are insufficient"
         );
 
-        playerBalances[msg.sender] = playerBalances[msg.sender].sub(stake);
+        balances_of_players[msg.sender] = balances_of_players[msg.sender].sub(
+            stake
+        );
 
-        games[gameCode].gameCode = gameCode;
-        games[gameCode].playerOne = msg.sender;
-        games[gameCode].playerTwo = opponent;
-        games[gameCode].stake = stake;
-        games[gameCode].status = GameStatus.started;
+        games[game_code].game_code = game_code;
+        games[game_code].player_one = msg.sender;
+        games[game_code].player_two = opponent;
+        games[game_code].stake = stake;
+        games[game_code].status = game_status.started;
     }
 
     //  Player 2 joins the game
-    function participateGame(string memory gameCode) external {
+    function participate_in_game(string memory game_code) external {
         require(
-            games[gameCode].playerTwo == msg.sender,
+            games[game_code].player_two == msg.sender,
             "You are not Player 2 for this game"
         );
         require(
-            games[gameCode].status == GameStatus.started,
+            games[game_code].status == game_status.started,
             "Game not started or has already been participated in"
         );
 
-        uint256 gameStake = games[gameCode].stake;
+        uint256 gameStake = games[game_code].stake;
         require(
-            gameStake <= playerBalances[msg.sender],
+            gameStake <= balances_of_players[msg.sender],
             "Player funds are insufficient"
         );
 
-        playerBalances[msg.sender] = playerBalances[msg.sender].sub(gameStake);
-        games[gameCode].status = GameStatus.ongoing;
+        balances_of_players[msg.sender] = balances_of_players[msg.sender].sub(
+            gameStake
+        );
+        games[game_code].status = game_status.ongoing;
     }
 
     //   finish the game
-    function endGame(
-        string memory gameCode,
+    function end_game(
+        string memory game_code,
         // string memory afterMatchDataURI,
         string memory result
     ) external {
         require(
-            games[gameCode].status == GameStatus.ongoing,
+            games[game_code].status == game_status.ongoing,
             "Match did not started or invalid code"
         );
         require(
-            compareStrings(result, outcomes[GameOutcome.playerTwo]) ||
-                compareStrings(result, outcomes[GameOutcome.draw]) ||
-                compareStrings(result, outcomes[GameOutcome.playerOne]),
+            compare_strings(result, outcomes[game_outcome.player_two]) ||
+                compare_strings(result, outcomes[game_outcome.draw]) ||
+                compare_strings(result, outcomes[game_outcome.player_one]),
             "Invalid Result"
         );
 
-        games[gameCode].status = GameStatus.ended;
+        games[game_code].status = game_status.ended;
 
-        address playerOne = games[gameCode].playerOne;
-        address playerTwo = games[gameCode].playerTwo;
+        address player_one = games[game_code].player_one;
+        address player_two = games[game_code].player_two;
 
-        uint256 gameStake = games[gameCode].stake;
+        uint256 gameStake = games[game_code].stake;
 
-        if (compareStrings(result, outcomes[GameOutcome.draw])) {
-            games[gameCode].outcome = GameOutcome.draw;
-            playerBalances[playerOne] = playerBalances[playerOne].add(
-                gameStake
-            );
-            playerBalances[playerTwo] = playerBalances[playerTwo].add(
-                gameStake
-            );
-        } else if (compareStrings(result, outcomes[GameOutcome.playerOne])) {
-            games[gameCode].outcome = GameOutcome.playerOne;
+        if (compare_strings(result, outcomes[game_outcome.draw])) {
+            games[game_code].outcome = game_outcome.draw;
+            balances_of_players[player_one] = balances_of_players[player_one]
+                .add(gameStake);
+            balances_of_players[player_two] = balances_of_players[player_two]
+                .add(gameStake);
+        } else if (compare_strings(result, outcomes[game_outcome.player_one])) {
+            games[game_code].outcome = game_outcome.player_one;
             uint256 totalStakeWon = gameStake.mul(2);
-            playerBalances[playerOne] = playerBalances[playerOne].add(
-                totalStakeWon
-            );
-        } else if (compareStrings(result, outcomes[GameOutcome.playerTwo])) {
-            games[gameCode].outcome = GameOutcome.playerTwo;
+            balances_of_players[player_one] = balances_of_players[player_one]
+                .add(totalStakeWon);
+        } else if (compare_strings(result, outcomes[game_outcome.player_two])) {
+            games[game_code].outcome = game_outcome.player_two;
             uint256 totalStakeWon = gameStake.mul(2);
-            playerBalances[playerTwo] = playerBalances[playerTwo].add(
-                totalStakeWon
-            );
+            balances_of_players[player_two] = balances_of_players[player_two]
+                .add(totalStakeWon);
         }
     }
 
@@ -151,24 +151,24 @@ contract GameContract {
     //         msg.value > 0,
     //         "Please Deposit a valid amount greater than zero"
     //     );
-    //     playerBalances[msg.sender] = playerBalances[msg.sender].add(msg.value);
+    //     balances_of_players[msg.sender] = balances_of_players[msg.sender].add(msg.value);
     // }
 
-    function deposit(uint256 depositAmount) external payable {
+    function deposit(uint256 deposit_amount) external payable {
         require(
-            depositAmount > 0,
+            deposit_amount > 0,
             "Please Deposit a valid amount greater than zero"
         );
-        playerBalances[msg.sender] = playerBalances[msg.sender].add(
-            depositAmount
+        balances_of_players[msg.sender] = balances_of_players[msg.sender].add(
+            deposit_amount
         );
     }
 
-    function getPlayerBalance(address playerAddress)
+    function get_player_balances(address player_address)
         external
         view
-        returns (uint256 playerBalance)
+        returns (uint256 player_balance)
     {
-        return playerBalances[playerAddress];
+        return balances_of_players[player_address];
     }
 }
