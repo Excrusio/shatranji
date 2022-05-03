@@ -12,8 +12,10 @@ function PlayerOne({ setBetAmount }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(depositAmount);
-		await setBetAmount(depositAmount);
-		setDisabled(true);
+		if (depositAmount !== 0) {
+			await setBetAmount(depositAmount);
+			setDisabled(true);
+		}
 	};
 
 	const generateGameCode = () => {

@@ -14,8 +14,10 @@ function PlayerTwo({ setBetAmount }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(gameCode, depositAmount);
-		await setBetAmount(depositAmount);
-		setDisabled(true);
+		if (depositAmount !== 0) {
+			await setBetAmount(depositAmount);
+			setDisabled(true);
+		}
 	};
 
 	const verifyGameCode = () => {
@@ -27,6 +29,7 @@ function PlayerTwo({ setBetAmount }) {
 
 		if (!isValid) {
 			window.alert("Game code is invalid, please enter again.");
+			return;
 		}
 	};
 
