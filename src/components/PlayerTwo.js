@@ -36,7 +36,7 @@ function PlayerTwo({ setBetAmount }) {
 	return (
 		<div className="player-screen">
 			<Metamask player="Player 2" />
-			<Paper elevation={3}>
+			<Paper elevation={12}>
 				<Stack>
 					<TextField
 						variant="outlined"
@@ -55,7 +55,7 @@ function PlayerTwo({ setBetAmount }) {
 					</Button>
 				</Stack>
 			</Paper>
-			<Paper elevation={3}>
+			<Paper elevation={12}>
 				<Stack>
 					<TextField
 						variant="outlined"

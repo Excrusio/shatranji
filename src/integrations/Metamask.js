@@ -53,7 +53,7 @@ const MetaConnect = (props) => {
 	};
 
 	return (
-		<Paper elevation={3} sx={{ p: 3 }}>
+		<Paper elevation={12} sx={{ p: 3 }}>
 			<Stack spacing={2}>
 				<Typography variant="h4"> {player} </Typography>
 				<Typography variant="h6"> Account: {account} </Typography>
@@ -61,8 +61,17 @@ const MetaConnect = (props) => {
 					Balance: {balance} {balance ? "ETH" : null}
 				</Typography>
 				<div style={{ display: "flex" }}>
-					<Button variant="contained" onClick={connectHandler} style={{ display: "flex", alignItems: "center", flexGrow: "1" }}>
-						<img src={metamaskIcon} alt="Metamask" width="25px" height="25px" />
+					<Button
+						variant="contained"
+						onClick={connectHandler}
+						style={{ display: "flex", alignItems: "center", flexGrow: "1" }}
+					>
+						<img
+							src={metamaskIcon}
+							alt="Metamask"
+							width="25px"
+							height="25px"
+						/>
 						Connect to Metamask
 					</Button>
 				</div>
