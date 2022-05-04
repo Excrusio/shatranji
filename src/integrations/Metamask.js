@@ -25,7 +25,7 @@ const MetaConnect = (props) => {
 				await accountsChanged(res[0]);
 			} catch (err) {
 				console.error(err);
-				setErrorMessage("There was a problem connecting to MetaMask");
+				setErrorMessage("Please login to Metamask first.");
 			}
 		} else {
 			setErrorMessage("Install MetaMask");

@@ -5,23 +5,24 @@ import Chess from "chess.js"; // import Chess from  "chess.js"(default) if recie
 import Chessboard from "chessboardjsx";
 
 // Draw string
-// const FEN_STRING = "k7/1R1RN3/p3p3/P3P2p/1PP4P/3K1PP1/8/8 b - h3 0 1";
+// let INITIAL_FEN_STRING = "k7/1R1RN3/p3p3/P3P2p/1PP4P/3K1PP1/8/8 b - h3 0 1";
 
 // White winner string
-const FEN_STRING = "rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3";
+let INITIAL_FEN_STRING = "rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3";
 
 // Start from a fen string
-// const FEN_STRING = "rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2";
+// let INITIAL_FEN_STRING = "rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2";
 
 // Default
-// const FEN_STRING = "start";
+// let INITIAL_FEN_STRING = "start";
+let NEW_FEN_STRING = INITIAL_FEN_STRING;
 let gameWinner = " ";
 let winnerCallbackFunc;
 class HumanVsHuman extends Component {
 	static propTypes = { children: PropTypes.func };
 
 	state = {
-		fen: FEN_STRING,
+		fen: INITIAL_FEN_STRING,
 		// fen: "start",
 		// square styles for active drop square
 		dropSquareStyle: {},
@@ -34,10 +35,21 @@ class HumanVsHuman extends Component {
 		// array of past game moves
 		history: [],
 	};
+	// componentDidUpdate() {
+	// 	console.log(this.props.fenString);
+	// 	if (
+	// 		this.props.fenString !== "" &&
+	// 		this.props.fenString !== FEN_STRING &&
+	// 		this.props.fenString
+	// 	) {
+	// 		console.log("FEN_STRING: ", this.props.fenString);
+	// 		this.setState({ ...this.state, fen: this.props.fenString });
+	// 	}
+	// }
 
 	componentDidMount() {
-		if (FEN_STRING === "start") this.game = new Chess();
-		else this.game = new Chess(FEN_STRING);
+		if (INITIAL_FEN_STRING === "start") this.game = new Chess();
+		else this.game = new Chess(INITIAL_FEN_STRING);
 	}
 
 	// keep clicked square style and remove hint squares
@@ -108,8 +120,15 @@ class HumanVsHuman extends Component {
 		this.checkGameEnd();
 		// illegal move
 		if (move === null) return;
+
+		let fenToChange;
+		if (NEW_FEN_STRING !== INITIAL_FEN_STRING) {
+			fenToChange = NEW_FEN_STRING;
+		} else {
+			fenToChange = this.game.fen();
+		}
 		this.setState(({ history, pieceSquare }) => ({
-			fen: this.game.fen(),
+			fen: fenToChange,
 			history: this.game.history({ verbose: true }),
 			squareStyles: squareStyling({ pieceSquare, history }),
 		}));
@@ -160,8 +179,15 @@ class HumanVsHuman extends Component {
 		this.checkGameEnd();
 		// illegal move
 		if (move === null) return;
+
+		let fenToChange;
+		if (NEW_FEN_STRING !== INITIAL_FEN_STRING) {
+			fenToChange = NEW_FEN_STRING;
+		} else {
+			fenToChange = this.game.fen();
+		}
 		this.setState({
-			fen: this.game.fen(),
+			fen: fenToChange,
 			history: this.game.history({ verbose: true }),
 			pieceSquare: "",
 		});
@@ -176,11 +202,11 @@ class HumanVsHuman extends Component {
 		const { fen, dropSquareStyle, squareStyles } = this.state;
 
 		return this.props.children({
-			squareStyles,
 			position: fen,
+			onDrop: this.onDrop,
 			onMouseOverSquare: this.onMouseOverSquare,
 			onMouseOutSquare: this.onMouseOutSquare,
-			onDrop: this.onDrop,
+			squareStyles,
 			dropSquareStyle,
 			onDragOverSquare: this.onDragOverSquare,
 			onSquareClick: this.onSquareClick,
@@ -189,9 +215,12 @@ class HumanVsHuman extends Component {
 	}
 }
 
-export default function WithMoveValidation({ winnerCallback, fenString }) {
+export default function WithMoveValidation({ winnerCallback, parentFenString }) {
 	// console.log("CAllbackx" + winnerCallback);
+	console.log("WithMoveV " + parentFenString);
+	NEW_FEN_STRING = parentFenString;
 	winnerCallbackFunc = winnerCallback;
+	// FEN_STRING = parentFenString;
 	return (
 		<div>
 			<HumanVsHuman>

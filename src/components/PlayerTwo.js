@@ -5,11 +5,14 @@ import Metamask from "../integrations/Metamask";
 import CustomCard from "./card/CustomCard";
 import { Button, Paper, setRef, Stack, TextField, Typography } from "@mui/material";
 import { deposit } from "../Web3Client";
+import { constants } from "buffer";
 
-function PlayerTwo({ setBetAmount }) {
+function PlayerTwo({ setBetAmount, setFenString }) {
 	const [depositAmount, setDepositAmount] = useState(0);
 	const [gameCode, setGameCode] = useState("");
 	const [disabled, setDisabled] = useState(false);
+	const [disableJoin, setDisableJoin] = useState(false);
+	const [showCode, setShowCode] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -31,6 +34,11 @@ function PlayerTwo({ setBetAmount }) {
 			window.alert("Game code is invalid, please enter again.");
 			return;
 		}
+		// setFenString("rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3");
+		setDisableJoin(true);
+		setShowCode(true);
+		// setFenString("start");
+		// console.log(setFenString);
 	};
 
 	return (
@@ -64,14 +72,17 @@ function PlayerTwo({ setBetAmount }) {
 						helperText="6 Digit Hex Code"
 						label="Enter a game code to join"
 					/>
-					<Button variant="contained" color="primary" onClick={verifyGameCode}>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={verifyGameCode}
+						disabled={disableJoin}
+					>
 						Join
 					</Button>
 				</Stack>
 			</Paper>
-			<Button variant="contained" color="primary">
-				Play
-			</Button>
+			{showCode ? <Typography>Game Joined: {gameCode}</Typography> : ""}
 		</div>
 	);
 }
