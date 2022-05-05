@@ -3,7 +3,7 @@ import GameContract from "./truffle/build/GameContract.json";
 let selectedAccount;
 let gameContract;
 let stakeAmount = 0;
-let toAccount = "0xe7177af345bad36236a3625b6711c0afe1c4219e";
+let toAccount = "0x9B7c3c2ce580a9e9d206872e1CCa5B3984474FF8";
 
 export const init = async () => {
 	let provider = window.ethereum;
